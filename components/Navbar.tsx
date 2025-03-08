@@ -1,8 +1,9 @@
-import Link from "next/link";
-import { auth, signOut, signIn } from "@/auth";
-import { Slack , User} from "lucide-react";
-import Image from "next/image";
 
+import Link from "next/link";
+import { Slack, User } from "lucide-react";
+import Image from "next/image";
+import { auth } from "@/auth";
+import { handleSignOut, handleSignIn } from "@/app/actions/authActions";
 
 const Navbar = async () => {
   const session = await auth();
@@ -23,13 +24,7 @@ const Navbar = async () => {
                 <span className="max-sm:hidden">Option</span>
               </Link>
 
-              <form
-                action={async () => {
-                  "use server";
-                  await signOut({ redirectTo: "/" });
-                  
-                }}
-              >
+              <form action={handleSignOut}>
                 <button type="submit" className="cursor-pointer">
                   <span className="max-sm:hidden">Logout</span>
                 </button>
@@ -39,7 +34,7 @@ const Navbar = async () => {
                 <Image
                   src={session.user?.image as string}
                   alt="User Avatar"
-                  className="h-9 w-9 rounded-full fill"
+                  className="h-9 w-9 rounded-full"
                   width={20}
                   height={20}
                 />
@@ -47,12 +42,7 @@ const Navbar = async () => {
             </>
           ) : (
             <>
-              <form
-                action={async () => {
-                  "use server";
-                  await signIn("github");
-                }}
-              >
+              <form action={handleSignIn}>
                 <button type="submit">Login</button>
               </form>
               <div className="max-sm:hidden w-9 h-9 rounded-full bg-gray-50">
