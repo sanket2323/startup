@@ -4,7 +4,7 @@ import React from 'react'
 import SearchFormReset from "./SearchFormReset";
 
 
-const SearchForm = ({ query }: { query?: string }) => {
+const SearchForm = () => {
   return (
     <div>
       <Form action={"/"} className=" search-form mx-4">
@@ -16,7 +16,7 @@ const SearchForm = ({ query }: { query?: string }) => {
             placeholder="Search..."
           />
           <div className="flex mx-4">
-            {query && <SearchFormReset />}
+            { <SearchFormReset />}
 
             <button type="submit" className="search-btn">
               <Search className="size-5" />
