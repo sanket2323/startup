@@ -12,6 +12,23 @@ import Link from "next/link";
 import { Eye } from "lucide-react";
 import Image from "next/image";
 
+type StartUpTypeCard = {
+  _id: string;
+  _createdAt: string;
+  author: {
+    _id: string;
+    name: string;
+  };
+  profile_url?: string;
+  title: string;
+  description: string;
+  image: string;
+  category: string;
+  views: number;
+};
+
+
+
 const StartUpCard = ({ post }: { post: StartUpTypeCard }) => {
   return (
     <div>

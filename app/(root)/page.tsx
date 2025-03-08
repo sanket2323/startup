@@ -7,14 +7,22 @@ import { collection, getDocs } from "firebase/firestore";
 import { useEffect, useState } from "react";
 
 // Define a type for your post data
-interface Post {
+type Post = {
   id: string;
-  // Add other properties your post has
-  title?: string;
-  description?: string;
-  // Add all other properties you need
-  [key: string]: unknown; // This allows for any other properties
-}
+  _id:string;
+  _createdAt: string;
+  author: {
+    _id: string;
+    name: string;
+  };
+  profile_url?: string;
+  title: string;
+  description: string;
+  image: string;
+  category: string;
+  views: number;
+};
+
 
 export default function Home() {
   const [posts, setPosts] = useState<Post[]>([]);
@@ -25,7 +33,20 @@ export default function Home() {
       const postsArray: Post[] = [];
 
       querySnapshot.forEach((doc) => {
-        postsArray.push({ id: doc.id, ...doc.data() });
+        const data = doc.data();
+        const post: Post = {
+          id: doc.id,
+          _id: doc.id, // Assign doc.id to _id
+          _createdAt: data._createdAt || "",
+          author: data.author || { _id: "", name: "" },
+          profile_url: data.profile_url || "",
+          title: data.title || "Untitled",
+          description: data.description || "",
+          image: data.image || "",
+          category: data.category || "Uncategorized",
+          views: data.views || 0,
+        };
+        postsArray.push(post);
       });
 
       setPosts(postsArray);
@@ -33,6 +54,22 @@ export default function Home() {
       console.log("this is the catch section", error);
     }
   };
+
+
+  // const fetchData = async () => {
+  //   try {
+  //     const querySnapshot = await getDocs(collection(db, "posts"));
+  //     const postsArray: Post[] = [];
+
+  //     querySnapshot.forEach((doc) => {
+  //       postsArray.push({ id: doc.id, ...doc.data() });
+  //     });
+
+  //     setPosts(postsArray);
+  //   } catch (error) {
+  //     console.log("this is the catch section", error);
+  //   }
+  // };
 
   useEffect(() => {
     fetchData();

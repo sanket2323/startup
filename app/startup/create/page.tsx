@@ -1,4 +1,4 @@
-/* eslint-disable @next/next/no-img-element */
+
 'use client'
 import React, { useState } from "react";
 import {
@@ -12,22 +12,18 @@ import Link from "next/link";
 
 const CreateProject = () => {
   const router = useRouter();
-  const [formData, setFormData] = useState({
+  const [formData] = useState({
     title: "",
     description: "",
     category: "",
     profile_url: "",
   });
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+  const handleChange = () => {
+  
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    // Submit data to backend (Firebase, API, etc.)
-    console.log("Project Data:", formData);
+  const handleSubmit = async () => {
     router.push("/");
   };
 
