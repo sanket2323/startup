@@ -17,7 +17,7 @@ const Navbar = async () => {
           {session && session?.user ? (
             <>
               <Link href="/startup/create">
-                <span className="max-sm:hidden">Create</span>
+                <span className="">Create</span>
               </Link>
 
               <Link href="/startup/create">
