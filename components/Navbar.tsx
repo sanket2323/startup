@@ -26,7 +26,7 @@ const Navbar = async () => {
 
               <form action={handleSignOut}>
                 <button type="submit" className="cursor-pointer">
-                  <span className="max-sm:hidden">Logout</span>
+                  <span className="">Logout</span>
                 </button>
               </form>
 
